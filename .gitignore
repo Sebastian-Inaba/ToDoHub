@@ -1,0 +1,14 @@
+node_modules
+.env
+
+public/assets/fontawesome/js/
+public/assets/fontawesome/less/
+public/assets/fontawesome/metadata/
+public/assets/fontawesome/scss/
+public/assets/fontawesome/sprites/
+public/assets/fontawesome/svgs/
+public/assets/fontawesome/webfonts/
+
+public/assets/fontawesome/css/*
+
+!public/assets/fontawesome/css/all.min.css

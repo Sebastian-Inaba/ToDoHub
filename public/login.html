@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Page</title>
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="leftColumn">
+      <h1>ToDoHub</h1>
+      <p>The smart way to handel your time</p>
+      <video controls width="100%" poster="videoPoster.jpg">
+        <source src="welcomeVideo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="rightColumn">
+        <form class="loginForm" id="loginForm">
+            <h2>Sign In</h2>
+            <div class="formGroup">
+              <label for="email">Email</label>
+              <input type="email" id="email" required placeholder="Email@example.com" />
+            </div>
+            <div class="formGroup">
+              <label for="password">Password</label>
+              <input type="password" id="password" required placeholder="Your password..." />
+            </div>
+            <button type="button" class="textButton forgotPassword" onclick="alert('Reset password functionality coming soon!')">
+              Forgot password?
+            </button>
+            <button type="submit">Sign In</button>
+            <p id="loginError" class="errorText"></p>
+            <div class="signUpPrompt">
+              <span>Don't have an account?</span>
+              <button type="button" onclick="window.location.href='register.html'">Register</button>
+            </div>
+        </form>
+        <div class="separator"></div>
+        <div class="testCredentials">
+            <p>Test Email: <strong>test@example.com</strong></p>
+            <p>Test Password: <strong>test</strong></p>
+        </div>
+    </div>
+  </div>
+  <script src="jsComponents/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register Page</title>
+  <link rel="stylesheet" href="css/register.css" />
+  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <form class="registerForm" id="registerForm">
+      <h2>Register</h2>
+      <div class="formGroup pfpGroup">
+        <div class="pfpPreviewContainer">
+          <div class="pfpPreview">
+            <i id="pfpIcon" class="fa fa-user"></i>
+            <img id="pfpPreviewImg" style="display:none;" />
+            <button type="button" class="uploadBtn" id="uploadBtn" tabindex="-1">
+              <i class="fa fa-camera"></i>
+            </button>
+          </div>
+          <input type="file" id="profilePic" accept="image/*" hidden />
+        </div>
+        <label for="profilePic">Profile Picture (optional)</label>
+      </div>
+      <div class="formGroup">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required placeholder="Your name..." />
+      </div>
+      <div class="formGroup">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="Email@example.com" />
+      </div>      
+      <div class="formGroup">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Strong password..." />
+      </div>     
+      <div class="formGroup">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Strong password again..." />
+      </div>  
+      <button type="submit">Sign Up</button>     
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <div class="gRecaptcha" data-sitekey="6LdALGIrAAAAAEe40Qqlwql_g9N-Tn_ShiwCtcW2"></div>
+    </form>
+  </div>
+  <script src="jsComponents/register.js" defer></script>
+</body>
+</html>

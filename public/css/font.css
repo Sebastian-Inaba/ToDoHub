@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('assets/font/Poppins-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Poppins globally */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
