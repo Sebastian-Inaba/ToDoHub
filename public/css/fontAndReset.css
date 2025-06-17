@@ -5,7 +5,7 @@
   font-style: normal;
 }
 
-/* Apply Poppins globally */
+/* Very big and difficult to make css reset */
 * {
   box-sizing: border-box;
   margin: 0;

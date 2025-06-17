@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/server.js & start http://localhost:3000",
     "dev": "nodemon server.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
