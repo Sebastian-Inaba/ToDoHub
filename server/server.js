@@ -5,8 +5,6 @@ require('dotenv').config();
 const express = require('express');         // Web framework for building REST APIs
 const mongoose = require('mongoose');       // MongoDB ODM (Object Data Modeling) tool
 const cors = require('cors');               // Middleware to allow cross-origin requests
-const multer = require('multer');           // Middleware to handle file uploads
-const sharp = require('sharp');             // Image processing library (e.g., convert to .webp)
 const User = require('./models/user.js');   // Mongoose model for users stored in the database
 
 // Initialize the Express application to handle HTTP requests between the frontend, backend, and MongoDB.
@@ -52,62 +50,10 @@ setInterval(async () => {
 }, 60 * 60 * 1000); // Run this every hour
 
 // --------------------
-// REGISTRATION ROUTE
-// FILE UPLOAD(pfp) SETUP """""not yet used"""""
-// --------------------
-
-// Store uploaded files in memory (not saved to disk)
-const storage = multer.memoryStorage();
-
-// Setup multer middleware to use memory storage
-const upload = multer({ storage });
-
-app.post('/register', upload.single('profilePic'), async (req, res) => {
-  try {
-    // Extract form fields from request body
-    const { username, email, password } = req.body;
-    let profilePic = ''; // Will hold base64 .webp image if uploaded
-
-    // If an image was uploaded, convert it to .webp and encode to base64
-    if (req.file) {
-      const webpBuffer = await sharp(req.file.buffer)
-        .webp({ quality: 80 }) // Convert to webp with quality 80
-        .toBuffer();           // Return as a buffer
-
-      // Store image as a base64 string (data:image/webp...)
-      profilePic = `data:image/webp;base64,${webpBuffer.toString('base64')}`;
-    }
-
-    // Validate required fields
-    if (!username || !email || !password) {
-      return res.status(400).json({ error: 'All fields are required.' });
-    }
-
-    // Create and save new user in MongoDB
-    const newUser = new User({ username, email, password, profilePic });
-    await newUser.save();
-
-    // Respond with success message
-    res.status(201).json({ message: 'User registered!' });
-
-  } catch (err) {
-    console.error(err);
-
-    // Handle duplicate key error (username or email already exists)
-    if (err.code === 11000) {
-      return res.status(400).json({ error: 'Username or email already exists.' });
-    }
-
-    // Generic error
-    res.status(500).json({ error: 'Something went wrong' });
-  }
-});
-
-// --------------------
 // AUTH ROUTES
 // --------------------
 
-// Import autentication routes from a separate file
+// Import authentication routes from a separate file
 // This file contains routes for user authentication like login and logout
 // Currently, logout is implemented simply inside index.html via a script
 const authRoutes = require('./routes/authentication');

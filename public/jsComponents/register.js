@@ -24,7 +24,7 @@ form.addEventListener('submit', async (event) => {
 
   try {
     // Send POST request to the backend register endpoint inside server.js with formData 
-    const response = await fetch('http://localhost:3000/register', {
+    const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST', // Use POST method to send user data 
       body: formData, // FormData automatically sets up the appropriate data we want to send
     });
@@ -34,15 +34,27 @@ form.addEventListener('submit', async (event) => {
       alert('Registration successful!');
       // Then redirect to login page after successful registration
       window.location.href = 'login.html';
-    } else {
-      // If registration failed get error message from response, most of the time it will be due to duplicate username or email or server has not started
-      const errorText = await response.text();
-      alert('Error: ' + errorText); 
+     } else {
+      // If registration failed, we check if the response is JSON to handle errors properly
+      const contentType = response.headers.get("content-type");
+
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await response.json();
+        alert('Error: ' + (errorData.error || 'Unknown error occurred.'));
+      } else {
+        const errorText = await response.text();
+        alert('Server Error: ' + errorText);
+      }
     }
   } catch (err) {
-    // Catch unexpected errors and log for debugging that may occur during the fetch request
-    console.error(err);
-    alert('Something went wrong!'); 
+    if (err instanceof TypeError && err.message === 'Failed to fetch') {
+      // This happens when server is not reachable at all (network error)
+      alert('Cannot reach the server. Is it running at http://localhost:3000?');
+    } else {
+      // Other unexpected issues
+      console.error(err);
+      alert('Unexpected error occurred.');
+    }
   }
 });
 

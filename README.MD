@@ -58,20 +58,40 @@ Right now, the app connects to a local MongoDB instance for development purposes
 ---
 
 ## Planned Improvements and Security Notes
-
-- Add **rate limiting** on login endpoints to prevent brute-force attacks.  
-- Implement **form validation** for email formats and password strength.  
+  
 - Move JWT storage from `localStorage` to **HttpOnly, Secure cookies** to protect tokens from XSS attacks.  
 - Implement **logout backend** route to securely clear authentication cookies.  
-- Add **JWT refresh token support** with a dedicated backend route to issue new access tokens seamlessly and keep users logged in without re-entering credentials.  
-- Update frontend logic to rely on HttpOnly cookies for authentication tokens instead of manual token storage.  
+- Add **JWT refresh token support** with a dedicated backend route to issue new access tokens seamlessly and keep users logged in without re-entering credentials.   
 - Ensure secure cookie settings (`HttpOnly`, `Secure`, `SameSite`) are applied to prevent CSRF and token theft.  
 - Integrate **light and dark mode support** using CSS variables and theme toggling for better user experience.
+
+TL;DR:  Set up httpOnly cookies,
+
+        then add logout backend to authentication, 
+
+        then add Token Refresh support,
+
+        then make sure cookies are secure: 
+        httpOnly: true,
+        secure: true,
+        sameSite: 'Strict',
+
+        then go over front end and make sure tokens don't use local storage, 
+
+        then add image conversion for webp pfp's but make it general for future use, upload or attach images.
+
+        then fix light and dark theme
+
 
 > **Note:** Switching to HttpOnly cookie-based authentication requires changes on both frontend and backend to maintain secure and smooth user sessions.
 
 ---
 
+## Planned Improvements that got cancel because im to lazy 
+
+- Implement **form validation** for email formats and password strength. 
+
+---
 ## How to Run Locally
 
 1. **Clone the repository**
