@@ -22,7 +22,8 @@ loginForm.addEventListener('submit', async (event) => {
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
+      credentials: 'include' // Include cookies in the request for session management
     });
 
     const data = await response.json();
@@ -33,12 +34,13 @@ loginForm.addEventListener('submit', async (event) => {
 
       // ⚠️ Insecure: Storing JWT in localStorage exposes it to XSS attacks
       // ✅ In production, use secure, HTTP-only cookies instead
-      localStorage.setItem('token', data.token);
+      // localStorage.setItem('token', data.token); // Store JWT token in localStorage (was used in previous versions) 
+      // but has now been replaced with cookies for security and authCheck
 
       // Redirect to home page (index.html) after 1 second delay
       setTimeout(() => {
         window.location.href = 'index.html'; 
-      }, 1000);
+      }, 500);
     } else {
       // If login failed (e.g. wrong credentials), show error message in red
       loginError.style.color = 'red';

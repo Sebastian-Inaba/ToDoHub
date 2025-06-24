@@ -48,8 +48,19 @@ router.post('/login', rateLimiter, async (req, res) => {
       { expiresIn: '1h' }
     );
 
+    //  Set the JWT token as an HTTP-only cookie to prevent XSS attacks
+    // This cookie will be sent with every request to authenticate the user
+    res.cookie('token', token, {
+      httpOnly: true,    // Cannot be read by JavaScript
+      secure: false,      // Only sent over HTTPS, on localhost it can be false. BUT in production, it should be true
+      sameSite: 'Strict', // Blocks CSRF
+      maxAge: 3600000,   // 1 hour expiry
+      path: '/'        // Accessible across all routes
+      //domain: 'yourdomain.com'// Lock to your domain in production, but not needed for localhost since it will be set to localhost
+    });
+
     // Respond with success message and the JWT token
-    res.json({ message: 'Login successful!', token });
+    res.json({ message: 'Login successful!' });
   } catch (err) {
     console.error(err); // Log unexpected server errors
     res.status(500).json({ error: 'Server error.' }); // Respond with generic server error message
@@ -102,6 +113,17 @@ router.post('/register', rateLimiter,  upload.single('profilePic'), async (req, 
     // Generic error
     res.status(500).json({ error: 'Something went wrong' });
   }
+});
+
+// logout route to clear the JWT cookie
+router.post('/logout', (req, res) => {
+  res.clearCookie('token', {
+    path: '/',
+    // domain: 'yourdomain.com', // Lock to your domain in production, but not needed for localhost
+    secure: false, // Set to true in production, false for localhost
+    httpOnly: true
+  });
+  res.json({ message: 'Logged out successfully' });
 });
 
 module.exports = router; // Export the router so other files can use it

@@ -32,8 +32,8 @@ However, it is by no means finished, and the current design will most likely not
 - ✅ User registration and login with encrypted passwords (`bcrypt`)  
 - ⚙️ Profile picture upload and storage via Supabase ----------------- *currently in progress*  
 - ✅ Secure and structured backend using Express and MongoDB  
-- 🟥 JWT tokens currently stored in `localStorage`, which is **vulnerable to XSS attacks** – not recommended for production  
-- 🟥 Login requests use `http://` in local development. In **production**, all API calls **must use `https://`** for secure communication  
+- ✅ JWT tokens use http-only cookies
+- 🟥 Api requests use `http://` in local development. In **production**, all API calls **must use `https://`** for secure communication  
 
 ---
 
@@ -58,47 +58,48 @@ Right now, the app connects to a local MongoDB instance for development purposes
 ---
 
 ## Planned Improvements and Security Notes
-  
-- Move JWT storage from `localStorage` to **HttpOnly, Secure cookies** to protect tokens from XSS attacks.  
-- Implement **logout backend** route to securely clear authentication cookies.  
-- Add **JWT refresh token support** with a dedicated backend route to issue new access tokens seamlessly and keep users logged in without re-entering credentials.   
-- Ensure secure cookie settings (`HttpOnly`, `Secure`, `SameSite`) are applied to prevent CSRF and token theft.  
+
+- Implement refresh token logic to issue new access tokens. 
+- prevent injection attacks. 
+- Add UI indicator that cookies are being used.
 - Integrate **light and dark mode support** using CSS variables and theme toggling for better user experience.
 
-TL;DR:  Set up httpOnly cookies,
+---
 
-        then add logout backend to authentication, 
+## Recent Update
 
-        then add Token Refresh support,
+ToDoHub now uses **HttpOnly cookies** instead of storing JWT tokens in `localStorage`.
 
-        then make sure cookies are secure: 
-        httpOnly: true,
-        secure: true,
-        sameSite: 'Strict',
+### What was done:
 
-        then go over front end and make sure tokens don't use local storage, 
+- JWT token is set as an **HttpOnly cookie** on successful login via the `/login` POST route on the backend.  
+- The frontend checks authentication status by calling `/api/check`, which verifies the token from the cookie.  
+- A dedicated **logout** component calls the backend `/logout` route to securely clear the authentication cookie.  
+- All authentication-related API requests use `credentials: 'include'` to send cookies automatically.  
+- Currently configured for **localhost development**:  
+  - `secure: false` (cookies sent over HTTP)  
+  - No `domain` specified (defaults to localhost)  
+- **Important:** In production, these settings **must be updated** to:  
+  - `secure: true` (cookies sent only over HTTPS)  
+  - Proper `domain` configured for your deployed site  
+  - Use HTTPS for all API calls  
 
-        then add image conversion for webp pfp's but make it general for future use, upload or attach images.
+### Why this matters
 
-        then fix light and dark theme
-
-
-> **Note:** Switching to HttpOnly cookie-based authentication requires changes on both frontend and backend to maintain secure and smooth user sessions.
+- Storing JWT in HttpOnly cookies mitigates risk of client-side JavaScript stealing tokens (XSS attack prevention).  
+- Cookie flags like `SameSite: 'Strict'` help protect against CSRF attacks.  
+- Backend verifies JWT on every protected route by reading the token from cookies.  
+- Frontend redirects to login if authentication check fails (e.g., expired or missing token).  
 
 ---
 
-## Planned Improvements that got cancel because im to lazy 
-
-- Implement **form validation** for email formats and password strength. 
-
----
 ## How to Run Locally
 
 1. **Clone the repository**
 
     ```bash
     git clone https://github.com/Sebastian-Inaba/ToDoHub
-    cd todohub
+    cd ToDoHub
     ```
 
 2. **Install dependencies**

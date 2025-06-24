@@ -13,6 +13,12 @@ const User = require('./models/user.js');   // Mongoose model for users stored i
 // In development, it runs locally at http://localhost:3000.
 const app = express();
 
+// Middleware to parse cookies from incoming requests
+// This allows us to read cookies sent by the client (e.g., authentication tokens)
+// We are using this for our JWT http-only cookie authentication
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 // Enable CORS (Cross-Origin Resource Sharing)
 // This allows other websites (like your frontend on another port/domain) to access this backend
 app.use(cors()); // Example: Allow frontend at http://localhost:3000 to call this API
@@ -53,13 +59,14 @@ setInterval(async () => {
 // AUTH ROUTES
 // --------------------
 
-// Import authentication routes from a separate file
-// This file contains routes for user authentication like login and logout
-// Currently, logout is implemented simply inside index.html via a script
+// Import authentication routes from a separate files
+// These files contains routes for user authentication
 const authRoutes = require('./routes/authentication');
+const authCheckRoutes = require('./routes/authCheck');
 
-// Use them under /api (e.g., /api/login, /api/logout, etc.)
+// Use them under /api
 app.use('/api', authRoutes);
+app.use('/api', authCheckRoutes);
 
 // --------------------
 // START THE SERVER

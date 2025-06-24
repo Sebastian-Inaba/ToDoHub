@@ -4,23 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <script>
-    // Check for token before rendering the page
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.href = 'login.html';
-    }
-  </script>
+  <style>body { display: none; }</style>
+  <script src="jsComponents/authCheck.js" defer></script>
 </head>
 <body>
   <p>You made it to index.html</p>
   <button onclick="logout()">Logout</button>
-
-  <script>
-    function logout() {
-      localStorage.removeItem('token');
-      window.location.href = 'login.html';
-    }
-  </script>
+  <script src="jsComponents/logout.js" defer></script>
 </body>
 </html>
