@@ -1,14 +1,18 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('assets/font/Poppins-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Poppins";
+    src:
+        url("../assets/fonts/poppins/poppins-regular-webfont.woff2")
+            format("woff2"),
+        url("../assets/fonts/poppins/poppins-regular-webfont.woff")
+            format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Very big and difficult to make css reset */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
 }

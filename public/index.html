@@ -1,15 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <style>body { display: none; }</style>
-  <script src="jsComponents/authCheck.js" defer></script>
-</head>
-<body>
-  <p>You made it to index.html</p>
-  <button onclick="logout()">Logout</button>
-  <script src="jsComponents/logout.js" defer></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ToDoHub Page</title>
+        <style>
+            body {
+                display: none;
+            }
+        </style>
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="css/darkAndLightMode.css" />
+        <script src="js/components/theme-init.js"></script>
+        <script src="js/auth/authCheck.js" defer></script>
+    </head>
+    <body>
+        <header class="header" role="banner">
+            <nav class="headerBreadcrumb" aria-label="Breadcrumb"></nav>
+            <button
+                class="headerButton hamburgerButton"
+                aria-label="Toggle menu"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="headerTitle" aria-label="Site Title">Todo Hub</h1>
+            <div class="headerControls" aria-label="Site Controls">
+                <button
+                    class="headerButton themeToggle"
+                    aria-label="Toggle Theme"
+                    title="Toggle light/dark theme"
+                ></button>
+                <button class="headerButton shareButton" aria-label="Share">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button
+                    class="headerButton settingsButton"
+                    aria-label="Settings"
+                >
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button
+                    class="headerButton logoutButton"
+                    onclick="logout()"
+                    aria-label="Logout"
+                >
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="layout">
+            <aside
+                class="sidebar"
+                role="complementary"
+                aria-label="Main Navigation"
+            >
+                <div class="sidebarSearch">
+                    <div class="searchWrapper">
+                        <input
+                            type="search"
+                            class="sidebarSearchInput"
+                            placeholder="Search..."
+                            aria-label="Search"
+                        />
+                        <button class="searchButton" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <nav class="sidebarNav" aria-label="Primary">
+                    <button class="sidebarButton sidebarButtonDashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </button>
+                    <button class="sidebarButton addProjectButton">
+                        <i class="fas fa-folder-plus"></i> Add Project
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-star"></i> Important
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-paperclip"></i> Attachments
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-sticky-note"></i> Notes
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-comments"></i> Messages
+                    </button>
+                    <button class="sidebarButton">
+                        <i class="fas fa-trash-alt"></i> Trash
+                    </button>
+                </nav>
+
+                <hr class="sidebarSeparator" />
+
+                <div class="sidebarProjects">
+                    <h2 class="sidebarProjectsTitle">MY PROJECTS</h2>
+                    <div
+                        class="sidebarProjectsList"
+                        aria-label="Project List"
+                    ></div>
+                    <button
+                        class="sidebarButton addProjectButton sidebarProjectsButton"
+                    >
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                    <hr class="sidebarSeparator" />
+                </div>
+            </aside>
+
+            <main class="main" role="main">
+                <div class="mainContent"></div>
+                <p class="rightsText">All rights reserved.</p>
+            </main>
+            <!-- Dashboard Section-->
+            <template id="templateDashboard">
+                <section id="dashboard" class="dashboardSection">
+                    <div class="dashboardNewMessages">
+                        <h2>New Messages</h2>
+                        <div class="dashboardMessagesList"></div>
+                    </div>
+                    <div class="dashboardSuggestions">
+                        <h2>Suggestions</h2>
+                        <div class="dashboardSuggestionsList"></div>
+                    </div>
+                    <div class="dashboardTasks">
+                        <h2>Today's Tasks</h2>
+                        <div class="dashboardTasksList"></div>
+                        <button class="addTaskTodayButton">
+                            Add Task Today
+                        </button>
+                    </div>
+                    <div class="dashboardNews">
+                        <h2>News</h2>
+                        <div class="dashboardNewsList"></div>
+                    </div>
+                </section>
+            </template>
+            <!-- Add Project Modal Template -->
+            <template id="templateAddProjects">
+                <div class="modalContent">
+                    <button class="modalCloseBtn" title="Close">×</button>
+                    <section id="add-projects" class="addProjects">
+                        <h2>Add Project</h2>
+                        <form class="projectSetupForm">
+                            <input
+                                type="text"
+                                placeholder="Project Name"
+                                required
+                            />
+                            <p
+                                id="createProjectError"
+                                class="errorText"
+                                role="alert"
+                                aria-live="assertive"
+                            ></p>
+                            <button type="submit">Create Project</button>
+                            <button type="button" class="modalCancelBtn">Cancel</button>
+                        </form>
+                        <div class="projectCardsContainer"></div>
+                    </section>
+                </div>
+            </template>
+
+            <!-- Modal container for Add Project -->
+            <div id="addProjectModal" class="modal hidden" aria-modal="true" role="dialog"></div>
+
+            <!-- Important Projects Template -->
+            <template id="templateImportant">
+                <section id="important" class="importantProjects">
+                    <h2>Important Projects</h2>
+                    <div class="importantProjectsList"></div>
+                </section>
+            </template>
+
+            <!-- Calendar Template -->
+            <template id="templateCalendar">
+                <section id="calendar" class="calendarSection">
+                    <h2>Calendar</h2>
+                    <div class="calendarView"></div>
+                    <div class="upcomingTasks">
+                        <h3>Upcoming Tasks</h3>
+                        <ul class="upcomingTasksList"></ul>
+                    </div>
+                </section>
+            </template>
+
+            <!-- Attachments Template -->
+            <template id="templateAttachments">
+                <section id="attachments" class="attachmentsSection">
+                    <h2>Attachments</h2>
+                    <div class="uploadArea">
+                        <input type="file" class="uploadInput" multiple />
+                        <button class="uploadButton">Upload</button>
+                    </div>
+                    <div class="attachmentsGallery"></div>
+                </section>
+            </template>
+
+            <!-- Notes Template -->
+            <template id="templateNotes">
+                <section id="notes" class="notesSection">
+                    <h2>Sticky Notes</h2>
+                    <button class="addStickyNoteButton">Add Sticky Note</button>
+                    <div class="stickyNotesContainer"></div>
+                    <div class="noteEditor">
+                        <textarea
+                            class="noteContent"
+                            placeholder="Select a note to edit..."
+                        ></textarea>
+                    </div>
+                </section>
+            </template>
+
+            <!-- Messages Template -->
+            <template id="templateMessages">
+                <section id="messages" class="messagesSection">
+                    <div class="userGroupList">
+                        <h2>Users & Groups</h2>
+                        <button class="addUserButton">Add User</button>
+                        <button class="createGroupButton">Create Group</button>
+                        <ul class="usersGroups"></ul>
+                    </div>
+                    <div class="messageBoard">
+                        <h2>Message Board</h2>
+                        <div class="chatWindow"></div>
+                        <form class="messageForm">
+                            <input
+                                type="text"
+                                placeholder="Type a message..."
+                                required
+                            />
+                            <button type="submit">Send</button>
+                        </form>
+                    </div>
+                </section>
+            </template>
+
+            <!-- Trash Template -->
+            <template id="templateTrash">
+                <section id="trash" class="trashSection">
+                    <h2>Trash</h2>
+                    <div class="trashItemsList"></div>
+                </section>
+            </template>
+
+            <!-- My Projects Template -->
+            <template id="templateMyProjects">
+                <section id="my-projects" class="myProjectsSection">
+                    <h2>My Projects</h2>
+                    <div class="projectFoldersContainer"></div>
+                </section>
+            </template>
+
+            <!-- Folder list template -->
+            <template id="templateSidebarProjects">
+                <li class="folderItem">
+                    <button class="folderBtn">Folder Name</button>
+                    <span class="folderDate">2025-07-17</span>
+                    <button class="folderDeleteBtn" title="Delete Folder">
+                        🗑️
+                    </button>
+                </li>
+            </template>
+
+            <!-- Project card template -->
+            <template id="templateProjectCard">
+                <article class="projectCard">
+                    <header class="projectCardHeader">
+                        <h4 class="projectTitle">Project Title</h4>
+                        <button class="projectDeleteBtn" title="Delete Project">
+                            🗑️
+                        </button>
+                        <button class="addSectionBtn" title="Add Section">
+                            + Add Section
+                        </button>
+                    </header>
+                    <p class="projectDescription">
+                        This is a short description of the project.
+                    </p>
+                    <div class="projectMeta">
+                        <span class="projectDateCreated"
+                            >Created: 2025-07-17</span
+                        >
+                        <label
+                            ><input type="checkbox" class="markImportant" />
+                            Important</label
+                        >
+                        <label
+                            >Set Date:
+                            <input type="date" class="projectSetDate"
+                        /></label>
+                    </div>
+
+                    <section class="projectSections">
+                        <section class="projectSection">
+                            <header class="sectionHeader">
+                                <h5 class="sectionTitle">Section Title</h5>
+                                <button
+                                    class="sectionDeleteBtn"
+                                    title="Delete Section"
+                                >
+                                    🗑️
+                                </button>
+                                <button class="addTaskBtn" title="Add Task">
+                                    + Add Task
+                                </button>
+                            </header>
+
+                            <ul class="taskList">
+                                <li class="taskItem">
+                                    <input
+                                        type="checkbox"
+                                        class="taskCheckbox"
+                                    />
+                                    <div class="taskDetails">
+                                        <h6 class="taskTitle">Task Title</h6>
+                                        <p class="taskDescription">
+                                            Task description here.
+                                        </p>
+                                        <div class="taskTags">
+                                            <span class="tag">Tag1</span>
+                                            <span class="tag">Tag2</span>
+                                        </div>
+                                        <div class="taskAttachments">
+                                            <a
+                                                href="#"
+                                                title="View Attachment"
+                                                class="attachmentIcon"
+                                                >📎</a
+                                            >
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="taskDeleteBtn"
+                                        title="Delete Task"
+                                    >
+                                        🗑️
+                                    </button>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                </article>
+            </template>
+        </div>
+        <script src="js/auth/logout.js" defer></script>
+        <script type="module" src="js/index.js" defer></script>
+    </body>
 </html>

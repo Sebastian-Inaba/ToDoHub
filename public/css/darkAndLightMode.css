@@ -1,0 +1,78 @@
+:root {
+    /* Dark theme (default) */
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #f0f0f0;
+    --text-secondary: #bbbbbb;
+    --accent-color: #4d9eff;
+    --accent-hover: #2a7bff;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --input-bg: #2d2d2d;
+    --input-border: #444444;
+    --error-color: #ff6b6b;
+    --icon-color: #cccccc;
+}
+
+[dataTheme="light"] {
+    /* Light theme */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --text-primary: #222222;
+    --text-secondary: #555555;
+    --accent-color: #007bff;
+    --accent-hover: #0056b3;
+    --border-color: #dddddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --error-color: #ff0000;
+    --icon-color: #444444;
+}
+
+.floatingThemeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.floatingThemeToggle:hover {
+    transform: scale(1.1);
+    background-color: var(--accent-hover);
+}
+
+.floatingThemeToggle i {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+[dataTheme="light"] .floatingThemeToggle i {
+    transform: rotate(180deg);
+}
+
+html:not(.themeInitializing) {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+html:not(.themeInitializing) *,
+html:not(.themeInitializing) *::before,
+html:not(.themeInitializing) *::after {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}

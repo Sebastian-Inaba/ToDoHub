@@ -1,50 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register Page</title>
-  <link rel="stylesheet" href="css/register.css" />
-  <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <form class="registerForm" id="registerForm">
-      <h2>Register</h2>
-      <div class="formGroup pfpGroup">
-        <div class="pfpPreviewContainer">
-          <div class="pfpPreview">
-            <i id="pfpIcon" class="fa fa-user"></i>
-            <img id="pfpPreviewImg" style="display:none;" />
-            <button type="button" class="uploadBtn" id="uploadBtn" tabindex="-1">
-              <i class="fa fa-camera"></i>
-            </button>
-          </div>
-          <input type="file" id="profilePic" accept="image/*" hidden />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register Page</title>
+        <link rel="stylesheet" href="css/register.css" />
+        <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="css/darkAndLightMode.css" />
+        <script src="js/components/theme-init.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <form
+                class="registerForm"
+                id="registerForm"
+                role="form"
+                aria-labelledby="registerHeading"
+                novalidate
+            >
+                <h2 id="registerHeading">Register</h2>
+
+                <div class="formGroup pfpGroup">
+                    <div
+                        class="pfpPreviewContainer"
+                        aria-live="polite"
+                        aria-atomic="true"
+                        aria-relevant="additions removals"
+                    >
+                        <div
+                            class="pfpPreview"
+                            role="img"
+                            aria-label="Profile picture preview"
+                        >
+                            <i
+                                id="pfpIcon"
+                                class="fa fa-user"
+                                aria-hidden="true"
+                            ></i>
+                            <img
+                                id="pfpPreviewImg"
+                                style="display: none"
+                                alt="Profile picture preview"
+                            />
+                            <button
+                                type="button"
+                                class="uploadBtn"
+                                id="uploadBtn"
+                                tabindex="0"
+                                aria-label="Upload profile picture"
+                            >
+                                <i class="fa fa-camera" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <input
+                            type="file"
+                            id="profilePic"
+                            name="profilePic"
+                            accept="image/*"
+                            hidden
+                            aria-describedby="profilePicDesc"
+                        />
+                    </div>
+                    <label for="profilePic" id="profilePicDesc"
+                        >Profile Picture (optional)</label
+                    >
+                </div>
+
+                <div class="formGroup">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        required
+                        placeholder="Your name..."
+                        aria-required="true"
+                        aria-describedby="usernameHelp"
+                    />
+                    <small id="usernameHelp" class="sr-only"
+                        >Enter your desired username</small
+                    >
+                </div>
+
+                <div class="formGroup">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="Email@example.com"
+                        aria-required="true"
+                        aria-describedby="emailHelp"
+                    />
+                    <small id="emailHelp" class="sr-only"
+                        >Enter a valid email address</small
+                    >
+                </div>
+
+                <div class="formGroup">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        placeholder="Strong password..."
+                        aria-required="true"
+                        aria-describedby="passwordHelp"
+                    />
+                    <small id="passwordHelp" class="sr-only"
+                        >Enter your password</small
+                    >
+                </div>
+
+                <div class="formGroup">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        required
+                        placeholder="Strong password again..."
+                        aria-required="true"
+                        aria-describedby="confirmPasswordHelp"
+                    />
+                    <small id="confirmPasswordHelp" class="sr-only"
+                        >Re-enter your password for confirmation</small
+                    >
+                </div>
+
+                <button type="submit" aria-label="Sign up and create account">
+                    Sign Up
+                </button>
+
+                <!--
+                google captcha, goes dormant so disabled for now
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                <div class="gRecaptcha" data-sitekey="6LdALGIrAAAAAEe40Qqlwql_g9N-Tn_ShiwCtcW2"></div>
+                -->
+            </form>
         </div>
-        <label for="profilePic">Profile Picture (optional)</label>
-      </div>
-      <div class="formGroup">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required placeholder="Your name..." />
-      </div>
-      <div class="formGroup">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="Email@example.com" />
-      </div>      
-      <div class="formGroup">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required placeholder="Strong password..." />
-      </div>     
-      <div class="formGroup">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Strong password again..." />
-      </div>  
-      <button type="submit">Sign Up</button>     
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-      <div class="gRecaptcha" data-sitekey="6LdALGIrAAAAAEe40Qqlwql_g9N-Tn_ShiwCtcW2"></div>
-    </form>
-  </div>
-  <script src="jsComponents/register.js" defer></script>
-</body>
+        <script src="js/auth/register.js"></script>
+        <script src="js/components/darkLightToggle.js"></script>
+    </body>
 </html>
