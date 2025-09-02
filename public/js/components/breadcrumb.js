@@ -1,3 +1,6 @@
+// public/js/components/breadcrumb.js
+// Breadcrumb navigation component
+
 export function setBreadcrumb(pathArray, onClickHandler) {
     const breadcrumbNav = document.querySelector(".headerBreadcrumb");
     if (!breadcrumbNav) return;

@@ -1,3 +1,6 @@
+// public/js/auth/register.js
+// This script handles the registration functionality for the web application.
+
 const uploadBtn = document.getElementById("uploadBtn"); // Select the upload button element that triggers file(pfp) input click
 const profilePicInput = document.getElementById("profilePic"); // Select the hidden file input for profile picture selection
 const previewImg = document.getElementById("pfpPreviewImg"); // Select the image element used to preview the chosen profile picture

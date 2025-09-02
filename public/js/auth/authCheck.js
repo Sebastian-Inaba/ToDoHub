@@ -1,4 +1,5 @@
-// Event listener that talks with backend to check if person trying to access have a valid token
+// public/js/auth/authCheck.js
+// This script checks if the user is authenticated by making a request to the server.
 
 // When index DOM loads fetch data via get that must have credentials(cookies)
 // If there is a response and its not ok send back to login if ok allow access

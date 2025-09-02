@@ -1,3 +1,6 @@
+//public/js/auth/login.js
+// This script handles the login functionality for the web application.
+
 const loginForm = document.getElementById("loginForm"); // Select the login form element by its ID to attach event listener
 const loginError = document.getElementById("loginError"); // Select the element to display error or success messages to the user
 
@@ -31,11 +34,6 @@ loginForm.addEventListener("submit", async (event) => {
         if (response.ok) {
             loginError.style.color = "green";
             loginError.textContent = data.message;
-
-            // ⚠️ Insecure: Storing JWT in localStorage exposes it to XSS attacks
-            // ✅ In production, use secure, HTTP-only cookies instead
-            // localStorage.setItem('token', data.token); // Store JWT token in localStorage (was used in previous versions)
-            // but has now been replaced with cookies for security and authCheck
 
             // Redirect to home page (index.html) after 1 second delay
             setTimeout(() => {

@@ -1,3 +1,6 @@
+// public/js/components/darkLightToggle.js
+// Dark/Light Theme Toggle Component
+
 document.addEventListener("DOMContentLoaded", () => {
     // Check if the current page is the index (landing) page
     const isIndexPage = ["/", "/index.html", "/dashboard"].includes(

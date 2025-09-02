@@ -1,11 +1,26 @@
+// Schema for each part of the project.js
+
 const mongoose = require("mongoose");
+
+const attachmentSchema = new mongoose.Schema(
+    {
+        name: String,
+        url: String,
+        type: String,
+        size: Number,
+        storagePath: String,
+        uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        uploadedAt: { type: Date, default: Date.now },
+    },
+    { _id: true },
+);
 
 const taskSchema = new mongoose.Schema({
     title: String,
     description: String,
     isCompleted: Boolean,
     tags: [String],
-    attachments: [String], // Supabase file URLs 
+    attachments: [attachmentSchema],
 });
 
 const sectionSchema = new mongoose.Schema({

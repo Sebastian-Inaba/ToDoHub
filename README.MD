@@ -6,6 +6,20 @@ ToDoHub is a full-stack task management web application built with HTML, CSS, Ja
 
 ---
 
+# Project Status
+
+> **Currently On Hold**
+
+This project is quite large and complex, and working on it has become draining at the moment. I decided to start it with a vanilla stack, which in hindsight makes it more challenging than it needs to be.  
+
+Putting it on hold doesn’t mean I won’t finish it. I just want to shift focus to other projects for now. In the future, I might even convert the whole project to React and TypeScript, which would be more enjoyable but also time consuming.  
+
+For now, I’m going to focus on fun and smaller MERN-stack projects that are better suited for my portfolio and career goals.
+
+If there is any questions regarding this project please feel free to ask. 
+
+---
+
 ### Tech Stack
 
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
@@ -27,6 +41,12 @@ ToDoHub is a full-stack task management web application built with HTML, CSS, Ja
 
 Designed to explore various aspects of web development, the layout focuses on accessibility, mobile-first responsiveness, and simplicity.  
 However, it is by no means finished, and the current design will most likely not be the final product.
+
+Although this project is now on hold, here are the UX design i thought could work for the nested Task area.
+
+![Figma Design For Nested Tasks](githubImages/ProjectDesignWithUXInMind.png)
+
+The design is my intended UI/UX fix for the design hell of having 4 nested parts which all require CRUD, folder, cards view, modal of cards, sections as tabs, tasks, attachment, etc....
 
 ---
 
@@ -53,13 +73,13 @@ Right now, the app connects to a local MongoDB and supabase instance for develop
    Upload your backend code "server" (e.g., `server.js`, `models/user.js`, `routes/auth.js`, etc.).
    Upload your frontend code "public" (e.g., `index.html`, `assets`, `js`, etc.)
 
-3. **Use a cloud-hosted MongoDB instance**  
+2. **Use a cloud-hosted MongoDB instance**  
    Make sure you have a cloud database set up with MongoDB Atlas or another cloud MongoDB provider. This database is accessible 24/7 and supports secure connections. Your backend should use the connection string stored in the environment variable MONGODB_URI to connect to this cloud database.
 
-4. **Switch API requests to HTTPS in production**  
+3. **Switch API requests to HTTPS in production**  
    Currently, API calls use `http://` for local development. In production, update your frontend API base URL to use `https://` to ensure secure communication with your backend.
 
-5. **Check the code**
+4. **Check the code**
    I might have forgotten to mention something since a lot of the fetch calls form localhost, double check the code.
 
 ---
@@ -72,32 +92,36 @@ Right now, the app connects to a local MongoDB and supabase instance for develop
 
 ## Recent Update
 
-- Refresh tokens have now been added. ToDoHUB also connects with Supabase for profile picture (pfp) storage, and improved validation logic has been implemented across the app.
-- Index does now have somewhat working UI with dark and light mode
-- Prettier fix for code layout and space
-- Readme changes and roadmap documentation updated 
+- Project logic was added (only thing missing is proper deletion of attachments and UI/UX design)
+- I have a design for the Projects i did in figma but i have not implemented it yet.
 
 ### What was done:
 
-- **Refresh Tokens Added:**
-    - On successful login via the `/login` POST route, an **access token** and a **refresh token** are generated.
-    - The access token is short-lived and stored as an **HttpOnly cookie**.
-    - The refresh token is securely stored and can be used to request a new access token without logging in again.
-    - A `/refresh` endpoint issues a new access token when the old one expires, using the refresh token.
+- **Project Component (Current State):**
+    - Manages global state for projects, cards, sections, and tasks, including edit modes and selection states.
+    - Handles file attachments with support for images and PDFs:
+        - Uploads via a hidden global file input.
+        - Uses signed URLs for secure viewing.
+        - Optimistic state updates for fast UI feedback.
+    - Implements CRUD operations for:
+        - Projects (create, rename, load sidebar)
+        - Cards (add, edit title/description, delete)
+        - Sections (add, edit title, delete)
+        - Tasks (add, edit title/description, toggle completion, delete)
+    - Provides interactive UI features:
+        - Edit mode toggle with select/delete multiple cards.
+        - Inline contentEditable for cards, sections, and tasks.
+        - Important task/card toggles, due date pickers, and tags.
+        - Optimistic updates with pending save tracking.
+    - Renders UI dynamically:
+        - Cards, sections, tasks, and attachments are generated via JS.
+        - Modular styling for cards, sections, tasks, and attachments.
+        - Handles attachment previews and download/open functionality.
+    - Includes utility functions:
+        - `customConfirm` for confirm modals.
+        - `setBreadcrumb` for navigation.
+        - Drag-scroll support for project lists.
 
-- **Profile Picture Upload with Supabase:**
-    - Users can now upload profile pictures, which are stored in a Supabase Storage bucket.
-    - Uploaded images use `.webp` format for optimized performance.
-    - Supabase returns metadata about the uploaded file (e.g., file path) which is saved with the user.
-
-- **Environment-Specific Config:**
-    - Currently set up for local development:
-        - `secure: false` — allows cookies over HTTP
-        - No domain set — defaults to `localhost`
-    - **Important for production**:
-        - `secure: true` — only send cookies over HTTPS
-        - Proper domain must be configured
-        - All API calls should use HTTPS
 
 ---
 

@@ -1,0 +1,922 @@
+/* 
+
+This Code is currently being used in the testing area(TESTAREA.js)
+
+
+.project-folder {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.folder-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.folder-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.folder-title.editing {
+  background-color: #f8f9fa;
+  border: 2px dashed #3498db;
+}
+
+.folder-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.styled-btn, .edit-mode-btn, .view-toggle-btn, .add-card-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-mode-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.edit-mode-btn:hover {
+  background-color: #2980b9;
+}
+
+.cancel-edit-btn {
+  background-color: #e74c3c !important;
+}
+
+.cancel-edit-btn:hover {
+  background-color: #c0392b !important;
+}
+
+.view-toggle-btn {
+  background-color: #34495e;
+  color: white;
+  min-width: 100px;
+}
+
+.view-toggle-btn:hover {
+  background-color: #2c3e50;
+}
+
+.add-card-btn {
+  background-color: #27ae60;
+  color: white;
+  font-weight: 600;
+}
+
+.add-card-btn:hover {
+  background-color: #229954;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.edit-mode-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.selectAllCards, .deleteSelectedCards {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.selectAllCards {
+  background-color: #6c757d;
+  color: white;
+}
+
+.deleteSelectedCards {
+  background-color: #dc3545;
+  color: white;
+}
+
+.projectCardsContainer {
+  margin-top: 2rem;
+}
+
+.card-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.card-title-preview {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  line-height: 1.3;
+}
+
+.card-desc-preview {
+  color: #666;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.card-meta-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: auto;
+}
+
+.card-date {
+  color: #95a5a6;
+}
+
+.card-important-badge {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.card-important-badge.important {
+  background-color: #fff5f5;
+  color: #e74c3c;
+  border: 1px solid #fadbd8;
+}
+
+.card-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.list-view .projectCardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list-view .projectCardRaw {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr auto;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  align-items: center;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.list-view .projectCardRaw:hover {
+  border-color: #3498db;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+}
+
+.list-view .card-desc-preview {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.list-view .card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-open-btn {
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-open-btn:hover {
+  background-color: #2980b9;
+}
+
+.card-view .projectCardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-view .projectCardRaw {
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  background: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.card-view .projectCardRaw:hover {
+  border-color: #3498db;
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+  transform: translateY(-2px);
+}
+
+.card-view .card-header {
+  margin-bottom: 1.5rem;
+}
+
+.card-view .card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.card-view .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.card-view .important-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.card-view .card-content-counts {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.grid-view .projectCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-view .projectCardRaw {
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  background: white;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grid-view .projectCardRaw:hover {
+  border-color: #3498db;
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+  transform: translateY(-2px);
+}
+
+.grid-view .card-title-preview {
+  margin-bottom: 1rem;
+}
+
+.styled-input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.styled-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.styled-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.projectCardRaw.selected {
+  border-color: #e74c3c;
+  background-color: #fdf2f2;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
+.card-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.card-modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  flex-grow: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.modal-card-title:focus {
+  background-color: #f8f9fa;
+  outline: 2px solid #3498db;
+}
+
+.card-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #7f8c8d;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.card-modal-close:hover {
+  background-color: #f8f9fa;
+  color: #e74c3c;
+}
+
+.card-modal-meta {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #495057;
+  min-width: 80px;
+}
+
+.meta-value {
+  color: #6c757d;
+}
+
+.modal-important-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.card-modal-description {
+  padding: 1.5rem 2rem;
+}
+
+.description-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.modal-card-description {
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  min-height: 80px;
+  line-height: 1.5;
+  color: #495057;
+  transition: border-color 0.2s;
+}
+
+.modal-card-description:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.card-modal-body {
+  flex: 1;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.section-tabs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-tabs {
+  display: flex;
+  border-bottom: 2px solid #e9ecef;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.section-tab {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  color: #6c757d;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.section-tab:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.section-tab.active {
+  border-bottom-color: #3498db;
+  color: #3498db;
+  font-weight: 600;
+}
+
+.section-tab-title {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.section-tab-title:focus {
+  background-color: #fff;
+  outline: 2px solid #3498db;
+}
+
+.section-tab-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  color: #6c757d;
+  transition: all 0.2s;
+}
+
+.section-tab-menu:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.section-tab-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  z-index: 10;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.add-section-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.add-section-btn:hover {
+  background-color: #218838;
+}
+
+.delete-section-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.delete-section-btn:hover {
+  background-color: #c82333;
+}
+
+.section-content {
+  display: none;
+  padding-top: 1rem;
+}
+
+.section-content.active {
+  display: block;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.no-tasks, .no-sections {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 3rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+}
+
+.modal-task-item {
+  padding: 1.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+.modal-task-item:hover {
+  border-color: #adb5bd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-task-item.completed {
+  background-color: #f8f9fa;
+  border-color: #28a745;
+}
+
+.modal-task-item.completed .modal-task-title,
+.modal-task-item.completed .modal-task-description {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.modal-task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.task-checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.task-completion-toggle {
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.modal-task-title {
+  flex-grow: 1;
+  font-weight: 600;
+  color: #2c3e50;
+  padding: 0.5rem;
+  border-radius: 4px;
+  line-height: 1.4;
+  transition: background-color 0.2s;
+}
+
+.modal-task-title:focus {
+  background-color: #f8f9fa;
+  outline: 2px solid #3498db;
+}
+
+.task-actions {
+  position: relative;
+}
+
+.task-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: #6c757d;
+  transition: all 0.2s;
+}
+
+.task-menu-btn:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.task-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  z-index: 10;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  min-width: 140px;
+}
+
+.attach-file-btn, .delete-task-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.attach-file-btn:hover {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.delete-task-btn:hover {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.modal-task-description {
+  color: #6c757d;
+  line-height: 1.5;
+  padding: 0.75rem;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+.modal-task-description:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.task-attachments {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.attachment-preview {
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.attachment-preview:hover {
+  transform: scale(1.05);
+}
+
+.attachment-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid #dee2e6;
+}
+
+.pdf-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.no-attachments {
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.attachment-loading {
+  color: #3498db;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.attachment-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background-color: #fdf2f2;
+  border: 1px solid #fadbd8;
+  border-radius: 4px;
+}
+
+.retry-upload {
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.add-task-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.add-task-btn:hover {
+  background-color: #138496;
+}
+
+@media (max-width: 1024px) {
+  .folder-header {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .folder-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-folder {
+    padding: 1rem;
+  }
+  
+  .list-view .projectCardRaw {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .grid-view .projectCardsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .card-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .card-modal {
+    max-height: 95vh;
+  }
+  
+  .card-modal-header,
+  .card-modal-meta,
+  .card-modal-description,
+  .card-modal-body {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .section-tabs {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  
+  .modal-task-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .task-checkbox-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .task-completion-toggle {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .folder-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .edit-mode-controls {
+    flex-direction: column;
+  }
+  
+  .card-view .card-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .card-view .card-content-counts {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .section-tabs-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+*/

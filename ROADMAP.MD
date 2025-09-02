@@ -78,15 +78,18 @@
 - [ ] Build "framework?" for **user-customizable themes** (Don't know how im gonna do this, maybe i just make users select the colors they want to use)
 - [ ] Polish UI and responsiveness
 - ✅ Add **custom icons**(fontawesome)
+- [ ] Add **custom flash** for mobile (added but not working 100%)
+- [ ] Add image and pdf attachment to tasks
 
 ---
 
 ## Phase 7: Return to Core
 
 - [ ] Resume work on **index/dashboard page**
-- ✅ Create layout and navigation 
-- ✅ Fix routing 
-- [ ] Fix content of every section 
+- ✅ Create layout and navigation
+- ✅ Fix routing
+- [ ] Fix content of every section
+
 ---
 
 ## Other: Production Readiness

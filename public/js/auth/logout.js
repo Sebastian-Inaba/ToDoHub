@@ -1,3 +1,6 @@
+// public/js/auth/logout.js
+// This script handles the logout functionality for the web application.
+
 async function logout() {
     localStorage.removeItem("lastSection");
     const confirmLogout = confirm("Are you sure you want to logout?");

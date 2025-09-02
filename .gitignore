@@ -13,5 +13,6 @@ public/assets/fontawesome/css/*
 
 !public/assets/fontawesome/css/all.min.css
 
+# Ignore other
 securityTable.MD
-jsComponentsTestArea
+TESTAREA.js

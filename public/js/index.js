@@ -21,16 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
             "Attachments",
             "Notes",
             "Messages",
-            "Trash"
+            "Trash",
         ];
         buttons.forEach((btn, i) => {
             btn.addEventListener("click", (e) => {
                 e.preventDefault();
-                window.dispatchEvent(new CustomEvent("navigate", { detail: { route: routes[i] } }));
+                window.dispatchEvent(
+                    new CustomEvent("navigate", {
+                        detail: { route: routes[i] },
+                    }),
+                );
             });
         });
     }
-    // Always load Dashboard on refresh
-    window.dispatchEvent(new CustomEvent("navigate", { detail: { route: "Dashboard" } }));
+    // Always load Dashboard on refresh(for now)
+    window.dispatchEvent(
+        new CustomEvent("navigate", { detail: { route: "Dashboard" } }),
+    );
     // No need to call darkLightToggle, project, or customTapFlash directly; they self-initialize
 });

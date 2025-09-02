@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ToDoHub Page</title>
+        <title>ToDoHub</title>
         <style>
             body {
                 display: none;
@@ -161,7 +161,9 @@
                                 aria-live="assertive"
                             ></p>
                             <button type="submit">Create Project</button>
-                            <button type="button" class="modalCancelBtn">Cancel</button>
+                            <button type="button" class="modalCancelBtn">
+                                Cancel
+                            </button>
                         </form>
                         <div class="projectCardsContainer"></div>
                     </section>
@@ -169,7 +171,12 @@
             </template>
 
             <!-- Modal container for Add Project -->
-            <div id="addProjectModal" class="modal hidden" aria-modal="true" role="dialog"></div>
+            <div
+                id="addProjectModal"
+                class="modal hidden"
+                aria-modal="true"
+                role="dialog"
+            ></div>
 
             <!-- Important Projects Template -->
             <template id="templateImportant">
@@ -250,105 +257,8 @@
                 </section>
             </template>
 
-            <!-- My Projects Template -->
-            <template id="templateMyProjects">
-                <section id="my-projects" class="myProjectsSection">
-                    <h2>My Projects</h2>
-                    <div class="projectFoldersContainer"></div>
-                </section>
-            </template>
-
-            <!-- Folder list template -->
-            <template id="templateSidebarProjects">
-                <li class="folderItem">
-                    <button class="folderBtn">Folder Name</button>
-                    <span class="folderDate">2025-07-17</span>
-                    <button class="folderDeleteBtn" title="Delete Folder">
-                        🗑️
-                    </button>
-                </li>
-            </template>
-
-            <!-- Project card template -->
-            <template id="templateProjectCard">
-                <article class="projectCard">
-                    <header class="projectCardHeader">
-                        <h4 class="projectTitle">Project Title</h4>
-                        <button class="projectDeleteBtn" title="Delete Project">
-                            🗑️
-                        </button>
-                        <button class="addSectionBtn" title="Add Section">
-                            + Add Section
-                        </button>
-                    </header>
-                    <p class="projectDescription">
-                        This is a short description of the project.
-                    </p>
-                    <div class="projectMeta">
-                        <span class="projectDateCreated"
-                            >Created: 2025-07-17</span
-                        >
-                        <label
-                            ><input type="checkbox" class="markImportant" />
-                            Important</label
-                        >
-                        <label
-                            >Set Date:
-                            <input type="date" class="projectSetDate"
-                        /></label>
-                    </div>
-
-                    <section class="projectSections">
-                        <section class="projectSection">
-                            <header class="sectionHeader">
-                                <h5 class="sectionTitle">Section Title</h5>
-                                <button
-                                    class="sectionDeleteBtn"
-                                    title="Delete Section"
-                                >
-                                    🗑️
-                                </button>
-                                <button class="addTaskBtn" title="Add Task">
-                                    + Add Task
-                                </button>
-                            </header>
-
-                            <ul class="taskList">
-                                <li class="taskItem">
-                                    <input
-                                        type="checkbox"
-                                        class="taskCheckbox"
-                                    />
-                                    <div class="taskDetails">
-                                        <h6 class="taskTitle">Task Title</h6>
-                                        <p class="taskDescription">
-                                            Task description here.
-                                        </p>
-                                        <div class="taskTags">
-                                            <span class="tag">Tag1</span>
-                                            <span class="tag">Tag2</span>
-                                        </div>
-                                        <div class="taskAttachments">
-                                            <a
-                                                href="#"
-                                                title="View Attachment"
-                                                class="attachmentIcon"
-                                                >📎</a
-                                            >
-                                        </div>
-                                    </div>
-                                    <button
-                                        class="taskDeleteBtn"
-                                        title="Delete Task"
-                                    >
-                                        🗑️
-                                    </button>
-                                </li>
-                            </ul>
-                        </section>
-                    </section>
-                </article>
-            </template>
+            <!-- Card Modal Container(used in TESTAREA.js) -->
+            <!-- <div id="cardModalContainer"></div>       -->
         </div>
         <script src="js/auth/logout.js" defer></script>
         <script type="module" src="js/index.js" defer></script>
